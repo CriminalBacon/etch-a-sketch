@@ -17,17 +17,52 @@ function createDivs(size){
 }
 
 function changeIsMouseDown(){
-
+    // change isMouseDown boolean to the opposite value
     isMouseDown = !isMouseDown;
 
 }
 
 function changeBackground(){
+    //check to see if the mouse is down then change the block's background
     if (isMouseDown){
         this.style.backgroundColor = "black";
     }
 }
 
-var isMouseDown = false;
+function validateInput(number){
+    // checks to see if input is a number greater than 0
+    if (!isNaN(number) && (number > 0)){
+        return true;
+    } else {
+        return false;
+    }
+}
 
-createDivs(64);
+function removeAllBocks(){
+    // removes all blocks by selecting the last child of "main-div" and removing it
+    var allBlocks = document.getElementById("main-div")
+    while (allBlocks.firstChild){
+        allBlocks.removeChild(allBlocks.lastChild);
+    }
+}
+
+function resetGrid(){
+    //changes all blocks background color to white
+    var allBlocks = document.querySelectorAll(".gridBlock");
+    allBlocks.forEach((block) => {
+        block.style.backgroundColor = "white";
+    });
+
+    var newSize = prompt("Enter new grid size");
+    if (validateInput(newSize)){
+        removeAllBocks();
+        createDivs(newSize);
+
+    }
+
+}
+
+var isMouseDown = false;
+var numberOfBlocks = 16;
+
+createDivs(numberOfBlocks);
